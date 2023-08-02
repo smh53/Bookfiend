@@ -1,4 +1,5 @@
 ﻿using Bookfiend.Application.Features.Book.Queries.GetAllBooks;
+using Bookfiend.Application.Features.Book.Queries.GetBookDetails;
 using Bookfiend.Domain;
 using Mapster;
 using System;
@@ -13,7 +14,13 @@ namespace Bookfiend.Application.MappingProfiles
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<BookDto, Book>();
+            config.NewConfig<Book, BookDto>()
+              .Map(dest => dest.AuthorFirstname, src => src.Author.Firstname)
+              .Map(dest => dest.AuthorLastname, src => src.Author.Lastname);
+
+            config.NewConfig<Book, BookDetailsDto>()
+               .Map(dest => dest.AuthorFirstname, src => src.Author.Firstname)
+              .Map(dest => dest.AuthorLastname, src => src.Author.Lastname);
         }
     }
 }

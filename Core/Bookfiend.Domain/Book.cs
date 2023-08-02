@@ -14,7 +14,7 @@ public class Book : BaseEntity
     public int AuthorId { get; set; }
     public int Volume { get; set; }
     public string Printary { get; set; } = string.Empty;
-    public DateTime PublishDate { get; set; }
+    public int PublishYear { get; set; }
     public ICollection<BookQuote>? BookQuotes { get; set; } 
 
 }
