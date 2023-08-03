@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookfiend.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookfiend.Persistence", "src\Infrastructure\Bookfiend.Persistence\Bookfiend.Persistence.csproj", "{BB586FFC-2B00-4CF1-8217-D5AE9B5C5603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookfiend.Api", "API\Bookfiend.Api\Bookfiend.Api.csproj", "{AF79C269-9B89-4014-95E9-F176212A0D58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookfiend.Api", "src\API\Bookfiend.Api\Bookfiend.Api.csproj", "{8753CAF5-6168-49A1-950B-0CD7DE79B425}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{BB586FFC-2B00-4CF1-8217-D5AE9B5C5603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB586FFC-2B00-4CF1-8217-D5AE9B5C5603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB586FFC-2B00-4CF1-8217-D5AE9B5C5603}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF79C269-9B89-4014-95E9-F176212A0D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF79C269-9B89-4014-95E9-F176212A0D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF79C269-9B89-4014-95E9-F176212A0D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF79C269-9B89-4014-95E9-F176212A0D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8753CAF5-6168-49A1-950B-0CD7DE79B425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8753CAF5-6168-49A1-950B-0CD7DE79B425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8753CAF5-6168-49A1-950B-0CD7DE79B425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8753CAF5-6168-49A1-950B-0CD7DE79B425}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,7 +64,7 @@ Global
 		{FEE94DB2-EC6C-4B97-810B-DC7A36F5DDEA} = {BB8D625B-006F-4D4B-BF22-0A6AAA65BC61}
 		{1921427F-B85F-4044-BAB7-DAE2E9EF8605} = {5602ED1E-6257-4AD0-A046-5E39CF1DD4DF}
 		{BB586FFC-2B00-4CF1-8217-D5AE9B5C5603} = {5602ED1E-6257-4AD0-A046-5E39CF1DD4DF}
-		{AF79C269-9B89-4014-95E9-F176212A0D58} = {7B27328A-2114-4609-B846-93A52A264BA8}
+		{8753CAF5-6168-49A1-950B-0CD7DE79B425} = {7B27328A-2114-4609-B846-93A52A264BA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {290C25C5-FD60-4FFE-BD9B-6383B61C667A}
