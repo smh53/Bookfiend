@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -16,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core\Bookfiend.Application\Bookfiend.Application.csproj" />
-    <ProjectReference Include="..\..\src\Infrastructure\Bookfiend.Infrastructure\Bookfiend.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Infrastructure\Bookfiend.Persistence\Bookfiend.Persistence.csproj" />
+    <ProjectReference Include="..\..\Core\Bookfiend.Application\Bookfiend.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Bookfiend.Infrastructure\Bookfiend.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Bookfiend.Persistence\Bookfiend.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

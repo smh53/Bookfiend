@@ -5,14 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
+namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor;
+
+public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorCommand>
 {
-    public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorCommand>
+    public CreateAuthorCommandValidator()
     {
-        public CreateAuthorCommandValidator()
-        {
-            RuleFor(r => r.Firstname).NotEmpty().NotNull().MaximumLength(30);
-            RuleFor(r => r.Lastname).NotEmpty().NotNull().MaximumLength(50);
-        }
+        RuleFor(r => r.Firstname)
+            .NotEmpty().WithMessage("{PropertyName} should be not empty!")
+            .Length(2,25).WithMessage("Name must be between 2 - 25 characters")
+            .Must(IsValidName).WithMessage("{PropertyName} should be all letters.");
+
+        RuleFor(r => r.Lastname)
+            .NotEmpty().WithMessage("{PropertyName} should be not empty!")
+            .Length(2, 25).WithMessage("Name must be between 2 - 25 characters");
+    }
+
+
+    private bool IsValidName(string name)
+    {
+        return name.All(Char.IsLetter);
     }
 }

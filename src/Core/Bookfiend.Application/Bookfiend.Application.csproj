@@ -18,9 +18,4 @@
     <ProjectReference Include="..\Bookfiend.Domain\Bookfiend.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Author\Commands\UpdateAuthor\" />
-    <Folder Include="Features\Author\Commands\DeleteAuthor\" />
-  </ItemGroup>
-
 </Project>

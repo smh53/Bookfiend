@@ -16,7 +16,7 @@ namespace Bookfiend.Application.Features.Book.Commands.CreateBook
         public int AuthorId { get; set; }
         public string Printary { get; set; } = string.Empty;
         public int PublishYear { get; set; }
-        public ICollection<BookQuote>? BookQuotes { get; set; }
+        public ICollection<Domain.BookQuote>? BookQuotes { get; set; }
     }
     
 }
