@@ -1,0 +1,50 @@
+﻿@page "/authors/"
+
+<h3>Authors</h3>
+
+<div class="m-2 d-flex justify-content-end">
+    <button @onclick="CreateAuthor" class="btn btn-success">Add Author</button>
+</div>
+
+@if(string.IsNullOrEmpty(Message) == false)
+{
+    <div class="alert alert-danger">
+        @Message
+    </div>
+}
+
+@if(Authors == null)
+{
+    <p>Loading Data...</p>
+}
+else
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                Firstname
+            </th>
+            <th>
+                Lastname
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var author in Authors)
+            {
+                <tr>
+                    <td>@author.Id</td>
+                    <td>@author.Firstname</td>
+                    <td>@author.Lastname</td>
+                    <td>
+                        <button @onclick="@(() => UpdateAuthor(author.Id))" class="btn btn-warning">Edit Author</button>
+                        <button @onclick="@(() => DeleteAuthor(author.Id))" class="btn btn-danger">Delete Author</button>
+                        <button @onclick="@(() => AuthorDetails(author.Id))" class="btn btn-primary">Author Details</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+}
