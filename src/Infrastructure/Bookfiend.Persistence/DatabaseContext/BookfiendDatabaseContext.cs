@@ -28,6 +28,7 @@ namespace Bookfiend.Persistence.DatabaseContext
 
                 if(entry.State == EntityState.Added)
                     entry.Entity.DateCreated = DateTime.Now;
+               
             }
            return base.SaveChangesAsync(cancellationToken);
         }

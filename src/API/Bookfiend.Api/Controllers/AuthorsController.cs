@@ -42,9 +42,9 @@ namespace Authorfiend.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Post(CreateAuthorCommand Author)
+        public async Task<ActionResult> Post(CreateAuthorCommand author)
         {
-            var response = await _mediator.Send(Author);
+            var response = await _mediator.Send(author);
             return CreatedAtAction(nameof(Get), new { id = response });
         }
 
@@ -53,9 +53,9 @@ namespace Authorfiend.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Put(UpdateAuthorCommand Author)
+        public async Task<ActionResult> Put(UpdateAuthorCommand author)
         {
-            await _mediator.Send(Author);
+            await _mediator.Send(author);
             return NoContent();
         }
 

@@ -46,7 +46,7 @@ namespace Bookfiend.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("Bookfiend.Domain.Book", b =>
@@ -84,7 +84,7 @@ namespace Bookfiend.Persistence.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("Bookfiend.Domain.BookQuote", b =>
@@ -115,7 +115,7 @@ namespace Bookfiend.Persistence.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookQuotes");
+                    b.ToTable("BookQuotes", (string)null);
                 });
 
             modelBuilder.Entity("Bookfiend.Domain.Book", b =>

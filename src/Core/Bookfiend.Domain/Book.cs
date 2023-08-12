@@ -10,7 +10,7 @@ namespace Bookfiend.Domain;
 public class Book : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
-    public virtual Author Author { get; set; } = null!;
+    public virtual Author? Author { get; set; }
     public int AuthorId { get; set; }
     public int Volume { get; set; }
     public string Printary { get; set; } = string.Empty;

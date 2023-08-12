@@ -9,6 +9,7 @@ namespace Bookfiend.Application.Features.BookQuote.Commands.UpdateBookQuote
 {
     public class UpdateBookQuoteCommand : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string Quote { get; set; } = string.Empty;
         public int BookId { get; set; }
         public int PageNumber { get; set; }

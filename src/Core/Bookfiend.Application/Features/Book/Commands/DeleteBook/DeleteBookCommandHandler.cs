@@ -24,21 +24,11 @@ public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, Unit>
     }
 
     public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
-    {
-        var validator = new DeleteBookCommandValidator();
-        var validationResult = await validator.ValidateAsync(request);
-
-        if (!validationResult.IsValid)
-            throw new BadRequestException("Invalid Book", validationResult);
-
-
+    {      
         var book = await _bookRepository.GetByIdAsync(request.Id);
-
         if(book is null) 
             throw new NotFoundException(nameof(Domain.Book), request.Id);
-
         await _bookRepository.DeleteAsync(book);
-
         return Unit.Value;
     }
 }

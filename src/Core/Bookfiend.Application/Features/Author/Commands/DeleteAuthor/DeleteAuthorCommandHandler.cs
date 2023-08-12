@@ -20,22 +20,11 @@ namespace Bookfiend.Application.Features.Author.Commands.DeleteAuthor
         }
 
         public async Task<Unit> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
-        {
-
-            var validator = new DeleteAuthorCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (!validationResult.IsValid)
-                throw new BadRequestException("Invalid Book", validationResult);
-
-
+        {          
             var author = await _authorRepository.GetByIdAsync(request.Id);
-
             if (author is null)
                 throw new NotFoundException(nameof(Domain.Author), request.Id);
-
             await _authorRepository.DeleteAsync(author);
-
             return Unit.Value;
         }
     }

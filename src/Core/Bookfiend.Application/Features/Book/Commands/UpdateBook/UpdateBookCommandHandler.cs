@@ -23,16 +23,9 @@ namespace Bookfiend.Application.Features.Book.Commands.UpdateBook
         }
 
         public async Task<Unit> Handle(UpdateBookCommand request, CancellationToken cancellationToken)
-        {
-            var validator = new UpdateBookCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (!validationResult.IsValid)
-                throw new BadRequestException("Invalid Book", validationResult);
-
+        {          
             var bookUpdate = _mapper.Map<Domain.Book>(request);
             await _bookRepository.UpdateAsync(bookUpdate);
-
             return Unit.Value;
         }
     }

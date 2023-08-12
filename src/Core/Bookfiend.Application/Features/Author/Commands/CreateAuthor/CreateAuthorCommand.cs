@@ -11,6 +11,7 @@ namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
     {
         public string Firstname { get; set; } = string.Empty;
         public string Lastname { get; set; } = string.Empty;
-        
+      
+
     }
 }

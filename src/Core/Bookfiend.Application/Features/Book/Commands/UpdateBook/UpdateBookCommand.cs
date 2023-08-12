@@ -10,6 +10,7 @@ namespace Bookfiend.Application.Features.Book.Commands.UpdateBook
 {
     public class UpdateBookCommand : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public virtual Domain.Author Author { get; set; } = null!;
         public int AuthorId { get; set; }

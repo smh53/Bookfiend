@@ -23,13 +23,7 @@ namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
         }
 
         public async Task<Unit> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
-        {
-            var validator = new CreateAuthorCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (!validationResult.IsValid)
-                throw new BadRequestException("Invalid Book", validationResult);
-
+        {          
             var newAuthor = _mapper.Map<Domain.Author>(request);
             await _authorRepository.CreateAsync(newAuthor);
             return Unit.Value;

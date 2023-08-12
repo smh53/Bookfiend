@@ -23,13 +23,7 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, Unit>
     }
 
     public async Task<Unit> Handle(CreateBookCommand request, CancellationToken cancellationToken)
-    {
-        var validator = new CreateBookCommandValidator();
-        var validationResult = await validator.ValidateAsync(request);
-
-        if(!validationResult.IsValid)
-           throw new BadRequestException("Invalid Book", validationResult);
-        
+    {      
         var newBook = _mapper.Map<Domain.Book>(request);
         await _bookRepository.CreateAsync(newBook);
         return Unit.Value;

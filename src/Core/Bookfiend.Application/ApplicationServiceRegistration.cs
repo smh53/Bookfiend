@@ -1,5 +1,8 @@
-﻿using Mapster;
+﻿using Bookfiend.Application.Behaviors;
+using FluentValidation;
+using Mapster;
 using MapsterMapper;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -19,6 +22,10 @@ public static class ApplicationServiceRegistration
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddScoped(
+            typeof(IPipelineBehavior<,>),
+            typeof(ValidationBehavior<,>));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         return services;
     }
 

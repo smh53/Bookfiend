@@ -23,16 +23,9 @@ namespace Bookfiend.Application.Features.Author.Commands.UpdateAuthor
         }
 
         public async Task<Unit> Handle(UpdateAuthorCommand request, CancellationToken cancellationToken)
-        {
-            var validator = new UpdateAuthorCommandValidator();
-            var validationResult = await validator.ValidateAsync(request);
-
-            if (!validationResult.IsValid)
-                throw new BadRequestException("Invalid Book", validationResult);
-
+        {           
             var authorUpdate = _mapper.Map<Domain.Author>(request);
             await _authorRepository.UpdateAsync(authorUpdate);
-
             return Unit.Value;
         }
     }
