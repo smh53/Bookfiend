@@ -13,11 +13,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Bookfiend.Application\Bookfiend.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Bookfiend.Identity\Bookfiend.Identity.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Bookfiend.Infrastructure\Bookfiend.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Bookfiend.Persistence\Bookfiend.Persistence.csproj" />
   </ItemGroup>

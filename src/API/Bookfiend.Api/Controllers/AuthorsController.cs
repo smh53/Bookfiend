@@ -5,6 +5,7 @@ using Bookfiend.Application.Features.Author.Commands.UpdateAuthor;
 using Bookfiend.Application.Features.Author.Queries.GetAllAuthors;
 using Bookfiend.Application.Features.Author.Queries.GetAuthorDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,6 +25,7 @@ namespace Authorfiend.Api.Controllers
 
         // GET: api/<AuthorsController>
         [HttpGet]
+       
         public async Task<List<AuthorDto>> Get()
         {
             var Authors = await _mediator.Send(new GetAllAuthorsQuery());

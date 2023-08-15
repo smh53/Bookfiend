@@ -1,18 +1,23 @@
 ﻿using Bookfiend.Api.Models;
 using Bookfiend.Application.Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
 using System.Net;
+using System.Text.Json.Serialization;
 
 namespace Bookfiend.Api.CustomMiddlewares
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -64,6 +69,8 @@ namespace Bookfiend.Api.CustomMiddlewares
             }
 
             httpContext.Response.StatusCode = (int)statusCode;
+            var logMessage = JsonConvert.SerializeObject(problem);
+            _logger.LogError(ex, logMessage);
             await httpContext.Response.WriteAsJsonAsync(problem);
         }
     }
