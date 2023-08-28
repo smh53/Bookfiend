@@ -15,9 +15,8 @@ namespace Bookfiend.Application.MappingProfiles
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<BookQuote, BookQuoteDto>()
-             .Map(dest => dest.BookName, src => src.Book.Name)
-             .Map(dest => dest.BookAuthorLastname, src => src.Book.Author.Lastname)
-             .Map(dest => dest.BookAuthorFirstname, src => src.Book.Author.Firstname);
+             .Map(dest => dest.Book, src => src.Book);
+            
         }
     }
 }

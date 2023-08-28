@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
 {
-    public class CreateAuthorCommand : IRequest<Unit>
+    public class CreateAuthorCommand : IRequest<int>
     {
-        public string Firstname { get; set; } = string.Empty;
-        public string Lastname { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
       
 
     }

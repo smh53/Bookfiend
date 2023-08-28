@@ -19,11 +19,12 @@ namespace Bookfiend.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task<int> CreateAsync(T entity)
         {
             await _dbContext.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-           
+            int id = entity.Id;
+            return id;
         }
 
         public async Task DeleteAsync(T entity)

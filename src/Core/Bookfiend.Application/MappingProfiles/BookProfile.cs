@@ -15,12 +15,12 @@ namespace Bookfiend.Application.MappingProfiles
         public void Register(TypeAdapterConfig config)
         {
             config.NewConfig<Book, BookDto>()
-              .Map(dest => dest.AuthorFirstname, src => src.Author.Firstname)
-              .Map(dest => dest.AuthorLastname, src => src.Author.Lastname);
+              .Map(dest => dest.Author, src => src.Author);
+              
 
             config.NewConfig<Book, BookDetailsDto>()
-               .Map(dest => dest.AuthorFirstname, src => src.Author.Firstname)
-              .Map(dest => dest.AuthorLastname, src => src.Author.Lastname);
+               .Map(dest => dest.Author, src => src.Author);
+             
         }
     }
 }

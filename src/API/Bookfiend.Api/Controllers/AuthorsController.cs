@@ -24,6 +24,7 @@ namespace Authorfiend.Api.Controllers
         }
 
         // GET: api/<AuthorsController>
+        [Authorize(Policy = "AuthorListPermission")]
         [HttpGet]
        
         public async Task<List<AuthorDto>> Get()
@@ -33,6 +34,7 @@ namespace Authorfiend.Api.Controllers
         }
 
         // GET api/<AuthorsController>/5
+        [Authorize(Policy = "AuthorListPermission")]
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorDetailsDto>> Get(int id)
         {
@@ -41,6 +43,7 @@ namespace Authorfiend.Api.Controllers
         }
 
         // POST api/<AuthorsController>
+        [Authorize(Policy = "AuthorCreatePermission")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,6 +54,7 @@ namespace Authorfiend.Api.Controllers
         }
 
         // PUT api/<AuthorsController>/5
+        [Authorize(Policy = "AuthorUpdatePermission")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,6 +66,7 @@ namespace Authorfiend.Api.Controllers
         }
 
         // DELETE api/<AuthorsController>/5
+        [Authorize(Policy = "AuthorDeletePermission")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

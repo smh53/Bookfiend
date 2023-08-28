@@ -16,11 +16,7 @@ namespace Bookfiend.Application.Features.Book.Commands.UpdateBook
                .NotNull();
             RuleFor(r => r.PublishYear)
                 .LessThanOrEqualTo(DateTime.UtcNow.Year);
-            RuleFor(r => r.Volume)
-                .GreaterThanOrEqualTo(1);
-            RuleFor(r => r.Printary)
-                .NotEmpty()
-                .NotNull();
+          
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Bookfiend.Domain;
 public class Author : BaseEntity
 {
  
-    public string Firstname { get; set; } = string.Empty;
-    public string Lastname { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
    
 }

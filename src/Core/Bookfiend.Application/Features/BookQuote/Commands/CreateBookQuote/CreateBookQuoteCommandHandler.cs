@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bookfiend.Application.Features.BookQuote.Commands.CreateBookQuote
 {
-    public class CreateBookQuoteCommandHandler : IRequestHandler<CreateBookQuoteCommand, Unit>
+    public class CreateBookQuoteCommandHandler : IRequestHandler<CreateBookQuoteCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IBookQuoteRepository _bookQuoteRepository;
@@ -22,11 +22,11 @@ namespace Bookfiend.Application.Features.BookQuote.Commands.CreateBookQuote
             _mapper = mapper;
         }
 
-        public async Task<Unit> Handle(CreateBookQuoteCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateBookQuoteCommand request, CancellationToken cancellationToken)
         {          
             var newBookQuote = _mapper.Map<Domain.BookQuote>(request);
-            await _bookQuoteRepository.CreateAsync(newBookQuote);
-            return Unit.Value;
+           var createdBookQuoteId = await _bookQuoteRepository.CreateAsync(newBookQuote);
+            return createdBookQuoteId;
         }
     }
 }

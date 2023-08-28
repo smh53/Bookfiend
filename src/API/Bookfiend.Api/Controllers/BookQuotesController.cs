@@ -3,6 +3,7 @@ using Bookfiend.Application.Features.BookQuote.Commands.DeleteBookQuote;
 using Bookfiend.Application.Features.BookQuote.Commands.UpdateBookQuote;
 using Bookfiend.Application.Features.BookQuote.Queries.GetAllBookQuotes;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,6 +22,7 @@ namespace Bookfiend.Api.Controllers
         }
 
         // GET: api/<BookQuotesController>
+        [Authorize(Policy ="BookQuoteListPermission")]
         [HttpGet]
         public async Task<List<BookQuoteDto>> Get()
         {
@@ -28,7 +30,7 @@ namespace Bookfiend.Api.Controllers
             return BookQuotes;
         }
 
-        //// GET api/<BookQuotesController>/5
+        // GET api/<BookQuotesController>/5
         //[HttpGet("{id}")]
         //public async Task<ActionResult<BookQuoteDetailsDto>> Get(int id)
         //{
@@ -37,6 +39,7 @@ namespace Bookfiend.Api.Controllers
         //}
 
         // POST api/<BookQuotesController>
+        [Authorize(Policy = "BookQuoteCreatePermission")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -47,6 +50,7 @@ namespace Bookfiend.Api.Controllers
         }
 
         // PUT api/<BookQuotesController>/5
+        [Authorize(Policy = "BookQuoteUpdatePermission")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -58,6 +62,7 @@ namespace Bookfiend.Api.Controllers
         }
 
         // DELETE api/<BookQuotesController>/5
+        [Authorize(Policy = "BookQuoteDeletePermission")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

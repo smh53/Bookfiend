@@ -11,8 +11,21 @@ namespace Bookfiend.Application.Features.Author.Commands.UpdateAuthor
     {
         public UpdateAuthorCommandValidator()
         {
-            RuleFor(r => r.Firstname).NotEmpty().NotNull();
-            RuleFor(r => r.Lastname).NotEmpty().NotNull();
+            RuleFor(r => r.FirstName)
+            
+            .Length(2, 25).WithMessage(" First Name must be between 2 - 25 characters ")
+            .Must(IsValidName).WithMessage(" {PropertyName} should be all letters ");
+
+            RuleFor(r => r.LastName)
+            
+            .Length(2, 25).WithMessage(" Last Name must be between 2 - 25 characters ")
+            .Must(IsValidName).WithMessage(" {PropertyName} should be all letters ");
+
+           
+        }
+        private bool IsValidName(string name)
+        {
+            return name.All(Char.IsLetter);
         }
     }
 }

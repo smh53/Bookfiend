@@ -3,10 +3,12 @@ using Bookfiend.Application.Exceptions;
 using Bookfiend.Application.Models.Identity;
 using Bookfiend.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 
 namespace Bookfiend.Identity.Services
@@ -15,16 +17,21 @@ namespace Bookfiend.Identity.Services
     {
         private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JwtSettings _jwtSettings;
 
         public AuthService(Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
+
+       
 
         public async Task<AuthResponse> Login(AuthRequest request)
         {
@@ -87,21 +94,28 @@ namespace Bookfiend.Identity.Services
         }
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
-        {
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            var roles = await _userManager.GetRolesAsync(user);
+        {        
+            var userRoles = await _userManager.GetRolesAsync(user);
 
-            var roleClaims = roles.Select(q => new Claim(ClaimTypes.Role, q)).ToList();
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id)
+            };
+
+           foreach (var userRole in userRoles)
+            {
+                var role = await _roleManager.FindByNameAsync(userRole);
+                var roleClaims = await _roleManager.GetClaimsAsync(role);
+
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
+                claims.AddRange(roleClaims);
+
             }
-            .Union(userClaims)
-            .Union(roleClaims);
+
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
 
@@ -116,6 +130,30 @@ namespace Bookfiend.Identity.Services
             return jwtSecurityToken;
         }
 
+
+
+        //private static bool ValidateToken(string authToken)
+        //{
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var validationParameters = GetValidationParameters();
+
+        //    SecurityToken validatedToken;
+        //    IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+        //    return true;
+        //}
+
+        //private static TokenValidationParameters GetValidationParameters()
+        //{
+        //    return new TokenValidationParameters()
+        //    {
+        //        ValidateLifetime = false, // Because there is no expiration in the generated token
+        //        ValidateAudience = false, // Because there is no audiance in the generated token
+        //        ValidateIssuer = false,   // Because there is no issuer in the generated token
+        //        ValidIssuer = "Sample",
+        //        ValidAudience = "Sample",
+        //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtkey)) // The same key as the one that generate the token
+        //    };
+        //}
+
     }
 }
-

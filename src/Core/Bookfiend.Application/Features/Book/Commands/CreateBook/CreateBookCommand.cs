@@ -9,14 +9,12 @@ using System.Threading.Tasks;
 
 namespace Bookfiend.Application.Features.Book.Commands.CreateBook
 {
-    public class CreateBookCommand : IRequest<Unit>
+    public class CreateBookCommand : IRequest<int>
     {
-        public string Name { get; set; } = string.Empty;
-        public int Volume { get; set; }
+        public string Name { get; set; } = string.Empty;      
         public int AuthorId { get; set; }
-        public string Printary { get; set; } = string.Empty;
         public int PublishYear { get; set; }
-        public ICollection<Domain.BookQuote>? BookQuotes { get; set; }
+        public ICollection<CreateBookQuotesWithBookDto>? BookQuotes { get; set; }
     }
     
 }

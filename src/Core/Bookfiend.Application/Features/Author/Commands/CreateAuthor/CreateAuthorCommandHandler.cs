@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
 {
-    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Unit>
+    public class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IAuthorRepository _authorRepository;
@@ -22,11 +22,11 @@ namespace Bookfiend.Application.Features.Author.Commands.CreateAuthor
             _authorRepository = authorRepository;
         }
 
-        public async Task<Unit> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
         {          
             var newAuthor = _mapper.Map<Domain.Author>(request);
-            await _authorRepository.CreateAsync(newAuthor);
-            return Unit.Value;
+          var createdAuthorId =  await _authorRepository.CreateAsync(newAuthor);
+            return createdAuthorId;
         }
     }
 }

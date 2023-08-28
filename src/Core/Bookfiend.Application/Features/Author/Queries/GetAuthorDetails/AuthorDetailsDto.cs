@@ -8,8 +8,9 @@ namespace Bookfiend.Application.Features.Author.Queries.GetAuthorDetails
 {
     public class AuthorDetailsDto
     {
-        public string Firstname { get; set; } = string.Empty;
-        public string Lastname { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
     }
 }

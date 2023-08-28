@@ -17,9 +17,9 @@ public static class MockAuthorRepository
 
         var authors = new List<Author>
         {
-            new Author { Id = 1,Firstname = "Test", Lastname = "Authors" },
-            new Author { Id = 2, Firstname = "Test", Lastname = "Authorx" },
-            new Author { Id = 3, Firstname = "Test", Lastname = "Authory" },
+            new Author { Id = 1,FirstName = "Test", LastName = "Authors" },
+            new Author { Id = 2, FirstName = "Test", LastName = "Authorx" },
+            new Author { Id = 3, FirstName = "Test", LastName = "Authory" },
         };
        
 

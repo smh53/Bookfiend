@@ -22,10 +22,8 @@ namespace Bookfiend.Application.Features.Book.Queries.GetAllBooks
 
         public async Task<List<BookDto>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            var books = await _bookRepository.GetAsync();
-
+            var books = await _bookRepository.GetAllBooksWithAuthors();
             var data = _mapper.Map<List<BookDto>>(books);
-
             return data;
         }
     }

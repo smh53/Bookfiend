@@ -14,6 +14,8 @@ namespace Bookfiend.Persistence.DatabaseContext
     {
         private readonly IUserService _userService;
 
+      
+
         public BookfiendDatabaseContext(DbContextOptions<BookfiendDatabaseContext> options, IUserService userService) : base(options)
         {
             _userService = userService;
@@ -22,7 +24,7 @@ namespace Bookfiend.Persistence.DatabaseContext
         public DbSet<Author> Authors { get; set; }
         public DbSet<BookQuote> BookQuotes { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
            foreach(var entry in base.ChangeTracker.Entries<BaseEntity>()
            .Where(q => q.State == EntityState.Added || q.State == EntityState.Modified))
@@ -38,7 +40,7 @@ namespace Bookfiend.Persistence.DatabaseContext
                
             }
 
-           return base.SaveChangesAsync(cancellationToken);
+           return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

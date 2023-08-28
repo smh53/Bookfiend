@@ -11,19 +11,19 @@ public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorComman
 {
     public CreateAuthorCommandValidator()
     {
-        RuleFor(r => r.Firstname)
-            .NotEmpty().WithMessage("{PropertyName} should be not empty!")
-            .Length(2,25).WithMessage("Name must be between 2 - 25 characters")
-            .Must(IsValidName).WithMessage("{PropertyName} should be all letters.");
+        RuleFor(r => r.FirstName)
+            
+            .Length(2,25).WithMessage(" First Name must be between 2 - 25 characters ")
+            .Must(IsValidName).WithMessage(" {PropertyName} should be all letters ");
 
-        RuleFor(r => r.Lastname)
-            .NotEmpty().WithMessage("{PropertyName} should be not empty!")
-            .Length(2, 25).WithMessage("Name must be between 2 - 25 characters");
+        RuleFor(r => r.LastName)
+            
+            .Length(2, 25).WithMessage(" Last Name must be between 2 - 25 characters ");
     }
 
 
     private bool IsValidName(string name)
     {
-        return name.All(Char.IsLetter);
+        return name.All(f => Char.IsLetter(f) || Char.IsWhiteSpace(f));
     }
 }

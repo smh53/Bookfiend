@@ -12,11 +12,9 @@ namespace Bookfiend.Application.Features.Book.Commands.UpdateBook
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public virtual Domain.Author Author { get; set; } = null!;
-        public int AuthorId { get; set; }
-        public int Volume { get; set; }
-        public string Printary { get; set; } = string.Empty;
+        public virtual Domain.Author? Author { get; set; }
+        public int AuthorId { get; set; }       
         public int PublishYear { get; set; }
-        public ICollection<Domain.BookQuote>? BookQuotes { get; set; }
+        public ICollection<UpdateBookQuotesWithBookDto>? BookQuotes { get; set; }
     }
 }
