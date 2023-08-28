@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/src/Infrastructure/Bookfiend.Persistence/Migrations/20230823222331_ModifiedAuthorProperties.cs
+/src/Infrastructure/Bookfiend.Persistence/Migrations/20230823222331_ModifiedAuthorProperties.Designer.cs
+/src/Infrastructure/Bookfiend.Persistence/Migrations/20230828101515_ModifiedBookColumns.cs
+/src/Infrastructure/Bookfiend.Persistence/Migrations/20230828101515_ModifiedBookColumns.Designer.cs
+/src/Infrastructure/Bookfiend.Persistence/Migrations/BookfiendDatabaseContextModelSnapshot.cs
