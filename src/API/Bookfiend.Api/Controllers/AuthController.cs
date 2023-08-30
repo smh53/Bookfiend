@@ -2,6 +2,7 @@
 using Bookfiend.Application.Models.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Bookfiend.Api.Controllers
 {
@@ -26,6 +27,12 @@ namespace Bookfiend.Api.Controllers
         public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
         {
             return Ok(await _authenticationService.Register(request));
+        }
+
+        [HttpGet("claims")]
+        public async Task<ActionResult<List<Claim>>> Claims()
+        {
+            return Ok(await _authenticationService.GetAllClaimTypes());
         }
     }
 }

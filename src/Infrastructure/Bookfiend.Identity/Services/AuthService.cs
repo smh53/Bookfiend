@@ -31,7 +31,22 @@ namespace Bookfiend.Identity.Services
             _roleManager = roleManager;
         }
 
-       
+        public async Task<List<ClaimDto>> GetAllClaimTypes()
+        {
+            var claims = new List<ClaimDto>();
+            foreach (var role in _roleManager.Roles)
+            {
+                var roleClaims = await _roleManager.GetClaimsAsync(role);
+
+                var claimList = roleClaims.Select(f => new ClaimDto
+                {
+                    ClaimType  = f.Type,
+                    ClaimValue = f.Value,
+                }).ToList();
+                claims.AddRange(claimList);
+            }
+            return claims;
+        }
 
         public async Task<AuthResponse> Login(AuthRequest request)
         {
@@ -100,7 +115,6 @@ namespace Bookfiend.Identity.Services
 
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim("uid", user.Id)
@@ -110,11 +124,12 @@ namespace Bookfiend.Identity.Services
             {
                 var role = await _roleManager.FindByNameAsync(userRole);
                 var roleClaims = await _roleManager.GetClaimsAsync(role);
-
+                
                 claims.Add(new Claim(ClaimTypes.Role, userRole));
                 claims.AddRange(roleClaims);
 
             }
+          
 
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
