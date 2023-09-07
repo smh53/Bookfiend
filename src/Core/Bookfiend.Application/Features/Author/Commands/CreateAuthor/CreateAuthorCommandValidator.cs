@@ -24,6 +24,9 @@ public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorComman
 
     private bool IsValidName(string name)
     {
+       
+
         return name.All(f => Char.IsLetter(f) || Char.IsWhiteSpace(f));
+
     }
 }

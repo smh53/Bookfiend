@@ -1,9 +1,13 @@
-﻿using Bookfiend.Application.Behaviors;
+﻿using Bookfiend.Application.BackgroundServices;
+using Bookfiend.Application.Behaviors;
+using Bookfiend.Application.MessageBroker;
 using FluentValidation;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +19,7 @@ namespace Bookfiend.Application;
 
 public static class ApplicationServiceRegistration
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         var config = TypeAdapterConfig.GlobalSettings;
         config.Scan(Assembly.GetExecutingAssembly());
@@ -26,6 +30,10 @@ public static class ApplicationServiceRegistration
             typeof(IPipelineBehavior<,>),
             typeof(ValidationBehavior<,>));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(configuration.GetConnectionString("RabbitMqConnection")), DispatchConsumersAsync = true });
+        services.AddSingleton<RabbitMqClientService>();
+        services.AddSingleton<IRabbitMqPublisher,RabbitMqPublisher>();
+        services.AddHostedService<AuthorBackgroundService>();
         return services;
     }
 
