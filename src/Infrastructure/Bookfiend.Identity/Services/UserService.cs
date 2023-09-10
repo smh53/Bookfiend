@@ -20,9 +20,11 @@ namespace Bookfiend.Identity.Services
         {
            
             _contextAccessor = contextAccessor;
+           
         }
+       
+        public string UserId { get => _contextAccessor?.HttpContext?.User?.FindFirstValue("uid"); }
 
-        public string UserId { get => _contextAccessor.HttpContext?.User?.FindFirstValue("uid"); }
-
+       
     }
 }

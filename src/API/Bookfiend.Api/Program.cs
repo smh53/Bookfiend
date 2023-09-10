@@ -1,8 +1,10 @@
 using Bookfiend.Api.CustomMiddlewares;
 using Bookfiend.Application;
+using Bookfiend.Application.Hubs;
 using Bookfiend.Identity;
 using Bookfiend.Infrastructure;
 using Bookfiend.Persistence;
+using Microsoft.AspNetCore.Builder;
 using Serilog;
 using System.Security.Claims;
 
@@ -19,12 +21,13 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);    
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("All", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    options.AddPolicy("All", builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 builder.Services.AddAuthorization(options =>
 {
    
@@ -75,10 +78,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseRouting();
 app.UseSerilogRequestLogging();
 app.UseCors("All");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<AuthorHub>("/AuthorHub");
+    endpoints.MapControllers();
+
+});
 app.Run();

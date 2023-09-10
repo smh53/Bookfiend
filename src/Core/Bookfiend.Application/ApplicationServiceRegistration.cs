@@ -1,10 +1,12 @@
 ﻿using Bookfiend.Application.BackgroundServices;
 using Bookfiend.Application.Behaviors;
+using Bookfiend.Application.Hubs;
 using Bookfiend.Application.MessageBroker;
 using FluentValidation;
 using Mapster;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
@@ -33,7 +35,11 @@ public static class ApplicationServiceRegistration
         services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(configuration.GetConnectionString("RabbitMqConnection")), DispatchConsumersAsync = true });
         services.AddSingleton<RabbitMqClientService>();
         services.AddSingleton<IRabbitMqPublisher,RabbitMqPublisher>();
+        services.AddSingleton<IUserIdProvider, CustomSignalRUserIdProvider>();
+       
+
         services.AddHostedService<AuthorBackgroundService>();
+        
         return services;
     }
 

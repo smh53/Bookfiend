@@ -1,13 +1,9 @@
-﻿using Bookfiend.Application.Contracts.Persistence;
+﻿using Bookfiend.Application.Contracts.Identity;
+using Bookfiend.Application.Contracts.Persistence;
 using Bookfiend.Application.Exceptions;
-using Bookfiend.Application.Features.Book.Commands.DeleteBook;
 using Bookfiend.Application.MessageBroker;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bookfiend.Application.Features.Author.Commands.DeleteAuthor
 {
@@ -15,11 +11,10 @@ namespace Bookfiend.Application.Features.Author.Commands.DeleteAuthor
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IRabbitMqPublisher _rabbitMqPublisher;
-
         public DeleteAuthorCommandHandler(IAuthorRepository authorRepository, IRabbitMqPublisher rabbitMqPublisher)
         {
             _authorRepository = authorRepository;
-            _rabbitMqPublisher = rabbitMqPublisher;
+            _rabbitMqPublisher = rabbitMqPublisher;          
         }
 
         public async Task<Unit> Handle(DeleteAuthorCommand request, CancellationToken cancellationToken)
@@ -29,8 +24,8 @@ namespace Bookfiend.Application.Features.Author.Commands.DeleteAuthor
                 throw new NotFoundException(nameof(Domain.Author), request.Id);
             await _authorRepository.DeleteAsync(author);
 
-            _rabbitMqPublisher.Publish(author);
-            return Unit.Value;
+            _rabbitMqPublisher.Publish(author);      
+                return Unit.Value;
         }
     }
 }

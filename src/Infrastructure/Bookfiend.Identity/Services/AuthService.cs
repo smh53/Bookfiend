@@ -93,7 +93,7 @@ namespace Bookfiend.Identity.Services
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "Basic");
+                await _userManager.AddToRoleAsync(user, "Basic");          
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else
@@ -129,7 +129,7 @@ namespace Bookfiend.Identity.Services
                 claims.AddRange(roleClaims);
 
             }
-          
+         
 
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));

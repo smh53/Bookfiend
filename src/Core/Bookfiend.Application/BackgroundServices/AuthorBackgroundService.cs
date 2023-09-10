@@ -1,5 +1,8 @@
-﻿using Bookfiend.Application.MessageBroker;
+﻿using Bookfiend.Application.Contracts.Identity;
+using Bookfiend.Application.Hubs;
+using Bookfiend.Application.MessageBroker;
 using Bookfiend.Domain;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
@@ -18,11 +21,15 @@ namespace Bookfiend.Application.BackgroundServices
         private readonly RabbitMqClientService _rabbitMqClientService;
         private readonly ILogger<AuthorBackgroundService> _logger;
         private IModel _channel;
+        private readonly IHubContext<AuthorHub> _hubContext;
+        private readonly IUserService _userService;
 
-        public AuthorBackgroundService(RabbitMqClientService rabbitMqClientService, ILogger<AuthorBackgroundService> logger)
+        public AuthorBackgroundService(RabbitMqClientService rabbitMqClientService, ILogger<AuthorBackgroundService> logger, IHubContext<AuthorHub> hubContext, IUserService userService)
         {
             _rabbitMqClientService = rabbitMqClientService;
             _logger = logger;
+            _hubContext = hubContext;
+            _userService = userService;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -42,11 +49,13 @@ namespace Bookfiend.Application.BackgroundServices
 
         }
 
-        private Task Consumer_Receieved(object sender, BasicDeliverEventArgs @event)
+        private async Task<Task> Consumer_Receieved(object sender, BasicDeliverEventArgs @event)
         {
-            var authorCreated = JsonSerializer.Deserialize<Author>(Encoding.UTF8.GetString(@event.Body.ToArray()));
-            _logger.LogInformation("Background service receieved something from queue : " + "DELETED AUTHOR :" + authorCreated.FirstName + " " + authorCreated.LastName + " " + authorCreated.Id);
+            var authorDeleted = JsonSerializer.Deserialize<Author>(Encoding.UTF8.GetString(@event.Body.ToArray()));
+            _logger.LogInformation("Background service receieved something from queue : " + "DELETED AUTHOR :" + authorDeleted.FirstName + " " + authorDeleted.LastName + " " + authorDeleted.Id);
             _channel.BasicAck(@event.DeliveryTag, false);
+         
+            await _hubContext.Clients.All.SendAsync("AuthorDeleted", JsonSerializer.Serialize(authorDeleted));
             return Task.CompletedTask;
            
         }
